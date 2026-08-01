@@ -128,3 +128,9 @@ WHERE p.name = 'sepsis_risk_predictor'
       LIMIT 1
   );
 ```
+
+
+
+```text
+SELECT pgml.dump_model(1);
+```
