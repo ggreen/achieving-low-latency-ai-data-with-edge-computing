@@ -1,4 +1,21 @@
 
+brew install libomp
+
+
+```text
+Bottle libomp (22.1.8)                                                                                                                          Downloaded  590.0KB/590.0
+```
+
+
+````text
+SELECT count(f.data) 
+            FROM pgml.files f
+            JOIN pgml.models m ON f.model_id = m.id
+            JOIN pgml.projects p ON m.project_id = p.id
+            WHERE p.name = 'sepsis_risk_predictor'
+            limit 1;
+
+````
 
 ```sql
 CREATE TABLE sepsis_vitals_history (
@@ -83,3 +100,31 @@ SELECT * FROM  pgml.train(
 );
 ```
 
+
+```sql
+SELECT f.data
+FROM pgml.files f
+JOIN pgml.models m ON f.model_id = m.id
+JOIN pgml.projects p ON m.project_id = p.id
+WHERE p.name = 'sepsis_risk_predictor'
+ORDER BY m.created_at DESC, f.part ASC;
+```
+
+
+```sql
+SELECT 
+    SUM(octet_length(f.data)) AS total_size_bytes,
+    ROUND(SUM(octet_length(f.data)) / 1024.0 / 1024.0, 2) AS total_size_mb,
+    pg_size_pretty(SUM(octet_length(f.data))::bigint) AS human_readable_size
+FROM pgml.files f
+JOIN pgml.models m ON f.model_id = m.id
+JOIN pgml.projects p ON m.project_id = p.id
+WHERE p.name = 'sepsis_risk_predictor'
+  AND m.id = (
+      -- Get the latest trained model ID for this project
+      SELECT id FROM pgml.models 
+      WHERE project_id = p.id 
+      ORDER BY created_at DESC 
+      LIMIT 1
+  );
+```
