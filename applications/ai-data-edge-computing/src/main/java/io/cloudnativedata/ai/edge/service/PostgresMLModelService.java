@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import ml.dmlc.xgboost4j.java.Booster;
 import ml.dmlc.xgboost4j.java.XGBoost;
 import ml.dmlc.xgboost4j.java.XGBoostError;
-import nyla.solutions.core.io.IO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -43,43 +41,13 @@ public class PostgresMLModelService {
             throw new IllegalStateException("No model found in PostgresML for project: " + projectName);
         }
 
-        // Reassemble chunks into a single byte stream
-//        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-//        for (byte[] chunk : modelChunks) {
-//            if (chunk != null) {
-//                buffer.write(chunk);
-//            }
-//        }
-//
-//        byte[] fullModelBytes = buffer.toByteArray();
-
-
 
         // Load into XGBoost Booster
-//        var model = modelChunks.getFirst();
         var json = modelChunks.getFirst();
         log.info("Loading XGBoost model for json: " + new String(json));
 
-//        var path = IO.tempDir()+"/model.bin";
-//        IO.writer().writeFile(Paths.get(path).toFile(), json);
 
         return XGBoost.loadModel(json);
 
-    }
-
-    public static byte[] hexToByteArray(String hex) {
-        String cleanHex = hex.replace("\\x", "")
-                .replace("\n", "")
-                .replace("\r", "")
-                .replace(" ", "")
-                .trim();
-
-        int len = cleanHex.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(cleanHex.charAt(i), 16) << 4)
-                    + Character.digit(cleanHex.charAt(i + 1), 16));
-        }
-        return data;
     }
 }

@@ -3,9 +3,23 @@ brew install libomp
 
 
 ```text
-Bottle libomp (22.1.8)                                                                                                                          Downloaded  590.0KB/590.0
+Bottle libomp (22.1.8)                                                                                                                         Downloaded  590.0KB/590.0
 ```
 
+
+```text
+There is the probability that that person will these vitals has sepsis. Reply only with a answer of yes or no
+
+               heart_rate (bpm): 118.0f, 
+                systolic_bp_mmHg: 88.0f,  
+                diastolic_bp_mmHg: 55.0f, 
+                mean_arterial_pressure: 66.0f,  
+                respiratory_rate: 28.0f,  
+                spo2 (%): 92.0f,  /
+                temperature (°C): 39.1f,  
+                wbc_count: 18.2f, 
+                lactate (mmol/L): 4.8f 
+```
 
 ````text
 SELECT count(f.data) 
