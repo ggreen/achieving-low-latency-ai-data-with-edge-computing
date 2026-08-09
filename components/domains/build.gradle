@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.cloudNativeDemo'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+
+    // Lombok setup: In Gradle, it requires both compileOnly and annotationProcessor
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // Optional: if you also use lombok in tests
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
