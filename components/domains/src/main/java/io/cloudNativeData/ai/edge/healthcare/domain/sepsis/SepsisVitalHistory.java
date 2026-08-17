@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SepsisVital {
+public class SepsisVitalHistory {
 
     // Entity Identifiers
     private String bedId;
@@ -35,10 +35,6 @@ public class SepsisVital {
     private BigDecimal wbcCount;
 
     private BigDecimal lactate;
-
-    // Feature Aggregates / Generated Features
-    // insertable = false, updatable = false because this is a STORED GENERATED column in Postgres
-    private BigDecimal shockIndex;
 
     // XGBoost Target Label
     private Boolean hasSepsis = false;
