@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class SepsisVitalHistory {
 
     // Entity Identifiers
-    private String bedId;
+    private String id;
 
     // Vital Signs (Numeric Features)
     private BigDecimal heartRate;

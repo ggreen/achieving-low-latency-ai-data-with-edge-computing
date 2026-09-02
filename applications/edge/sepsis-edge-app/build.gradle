@@ -5,19 +5,12 @@ plugins {
 	id 'org.graalvm.buildtools.native' version '1.1.8'
 }
 
-group = 'io.cloudNativeData'
+group = 'io.cloudnativedata'
 version = '0.0.1-SNAPSHOT'
-description = 'sink'
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
-	}
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
 	}
 }
 
@@ -27,35 +20,37 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2025.1.3")
-	set('springAiVersion', "2.0.0-M4")
 }
 
 dependencies {
-
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'org.postgresql:postgresql'
-	implementation 'org.springframework.boot:spring-boot-starter-integration'
-	implementation 'org.springframework.integration:spring-integration-amqp'
-	implementation 'org.springframework.amqp:spring-rabbit-stream'
+	implementation project(':components:domains')
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
-	implementation 'org.springframework.amqp:spring-rabbitmq-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	implementation 'org.springframework.amqp:spring-rabbit-stream'
 	implementation 'org.springframework.cloud:spring-cloud-stream'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.github.nyla-solutions:nyla.solutions.core:2.5.2'
-	implementation project(':components:domains')
+	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'ml.dmlc:xgboost4j_2.12:2.0.3'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-amqp-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-stream-test-binder'
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-jdbc-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+
+	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-//	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
 	}
 }
 

@@ -1,4 +1,4 @@
-package io.cloudNativeData.spring.rabbit.streams;
+package io.cloudNativeData.ai.edge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

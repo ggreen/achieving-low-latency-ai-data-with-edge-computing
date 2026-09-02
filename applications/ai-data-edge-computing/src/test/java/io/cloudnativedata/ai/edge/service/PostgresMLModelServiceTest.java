@@ -39,7 +39,6 @@ class PostgresMLModelServiceTest {
         assertNotNull(model);
 
         float[] singlePatientFeatures = new float[]{
-                0.0f,   // bed_id
                 118.0f, // heart_rate (bpm)
                 88.0f,  // systolic_bp (mmHg)
                 55.0f,  // diastolic_bp (mmHg)

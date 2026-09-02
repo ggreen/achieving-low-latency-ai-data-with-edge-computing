@@ -33,11 +33,6 @@ SELECT count(f.data)
 
 ```sql
 CREATE TABLE sepsis_vitals_history (
-    -- Unique Identifier (Fixed syntax here)
-                                       id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-
-    -- Entity Identifiers
-                                       bed_id VARCHAR(50),         -- Useful for spatial edge deployment mapping
 
     -- Vital Signs (Numeric Features)
                                        heart_rate NUMERIC(5,2),         -- bpm (e.g., 85.00)
@@ -63,9 +58,6 @@ CREATE TABLE sepsis_vitals_history (
     -- Time & Audit Tracking
 );
 
--- Index for fast time-series filtering and cohort extraction during training
-CREATE INDEX idx_sepsis_vitals_patient_time
-    ON sepsis_vitals_history (patient_id, recorded_at DESC);
 
 -- Index for PostgresML training set splits
 CREATE INDEX idx_sepsis_vitals_target

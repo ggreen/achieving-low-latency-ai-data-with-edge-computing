@@ -46,7 +46,7 @@ class SepsisServiceTest {
         subject.saveHistory(vitalHistory);
 
 
-        nyla.solutions.core.patterns.conversion.JavaBeanConverter
+//        nyla.solutions.core.patterns.conversion.JavaBeanConverter
         verify(repository).save(any(SepsisVitalHistoryEntity.class));
     }
 }
