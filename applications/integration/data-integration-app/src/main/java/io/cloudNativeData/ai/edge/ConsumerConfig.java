@@ -8,26 +8,32 @@ import io.cloudNativeData.ai.edge.repository.SepsisVitalHistoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbitmq.client.AmqpConnectionFactory;
 import org.springframework.amqp.rabbitmq.client.RabbitAmqpAdmin;
 import org.springframework.amqp.rabbitmq.client.SingleAmqpConnectionFactory;
-import org.springframework.amqp.rabbitmq.client.listener.RabbitAmqpListenerContainer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.integration.amqp.inbound.AmqpInboundChannelAdapter;
-import org.springframework.integration.annotation.ServiceActivator;
+import org.springframework.integration.amqp.dsl.Amqp;
 import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.messaging.MessageChannel;
+import tools.jackson.databind.json.JsonMapper;
 
 @Configuration
 @Slf4j
 public class ConsumerConfig {
 
     public static final String QUEUE_NAME = "sepsis.vitals.queue";
-    public static final String INPUT_CHANNEL = "sepsisVitalsInputChannel";
 
     private SepsisVitalHistoryRepository sepsisVitalHistoryRepository;
+
+    @Value("${spring.rabbitmq.username}")
+    private String rabbitUser;
+
+    @Value("${spring.rabbitmq.password}")
+    private String rabbitPassword;
 
     // 1. Declare the RabbitMQ Queue
     @Bean
@@ -46,7 +52,11 @@ public class ConsumerConfig {
     @Bean
     Environment env()
     {
-        return new AmqpEnvironmentBuilder().build();
+        return new AmqpEnvironmentBuilder().connectionSettings()
+                .username(rabbitUser)
+                .password(rabbitPassword)
+                .environmentBuilder()
+                .build();
     }
 
     @Bean
@@ -68,27 +78,29 @@ public class ConsumerConfig {
     }
 
 
-    // 3. Inbound Channel Adapter: Consumes from RabbitMQ and passes to Channel
+
     @Bean
-    public AmqpInboundChannelAdapter inboundAdapter(AmqpConnectionFactory connectionFactory,
-                                                    MessageChannel sepsisVitalsInputChannel) {
+    public IntegrationFlow sepsisVitalsFlow(
+            ConnectionFactory connectionFactory,
+            JsonMapper jsonMapper,
+            SepsisVitalHistoryRepository sepsisVitalHistoryRepository) {
 
-        org.springframework.amqp.core.MessageListenerContainer messageListenerContainer = new RabbitAmqpListenerContainer(connectionFactory);
-        messageListenerContainer.setQueueNames(QUEUE_NAME);
+        return IntegrationFlow
+                .from(Amqp.inboundAdapter(connectionFactory, QUEUE_NAME))
+                .handle(byte[].class, (payload, headers) -> {
 
+                    var sepsisVitalsPayload = jsonMapper.readValue(payload, SepsisVitalHistory.class);
 
-        var adapter = new AmqpInboundChannelAdapter(messageListenerContainer);
+                    log.info("Received sepsisVitalsPayload: {}", sepsisVitalsPayload);
 
-        adapter.setOutputChannel(sepsisVitalsInputChannel);
-
-        return adapter;
-    }
-
-
-    // 4. Service Activator: Listens on the channel and saves payload to Repository
-    @ServiceActivator(inputChannel = INPUT_CHANNEL)
-    public void processAndSaveVitals(SepsisVitalHistory vitalHistory) {
-        sepsisVitalHistoryRepository.save(SepsisVitalHistoryEntity.builder().id(vitalHistory.getId())
-                .sepsisVitalHistory(vitalHistory).build());
+                    sepsisVitalHistoryRepository.save(
+                            SepsisVitalHistoryEntity.builder()
+                                    .id(sepsisVitalsPayload.getId())
+                                    .sepsisVitalHistory(sepsisVitalsPayload)
+                                    .build()
+                    );
+                    return null; // Return null as this is the end of the pipeline
+                })
+                .get();
     }
 }

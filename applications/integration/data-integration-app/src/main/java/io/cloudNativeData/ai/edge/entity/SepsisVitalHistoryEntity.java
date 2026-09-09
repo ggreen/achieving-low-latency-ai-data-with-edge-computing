@@ -2,14 +2,13 @@ package io.cloudNativeData.ai.edge.entity;
 
 import io.cloudNativeData.ai.edge.healthcare.domain.sepsis.SepsisVitalHistory;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 
 @Entity
@@ -19,9 +18,9 @@ import org.hibernate.type.SqlTypes;
 @NoArgsConstructor
 public class SepsisVitalHistoryEntity {
     @Id
+    @Column(name = "sepsis_vhe_id")
     private String id;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "payload", nullable = false)
+    @Embedded
     SepsisVitalHistory sepsisVitalHistory;
 }
