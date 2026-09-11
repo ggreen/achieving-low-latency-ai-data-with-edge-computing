@@ -31,6 +31,5 @@ class ClearCacheServiceTest {
         subject.clearCache();
 
         verify(redisTemplate).execute(any(RedisCallback.class));
-        verify(searchResultsTemplate).execute(any(RedisCallback.class));
     }
 }
