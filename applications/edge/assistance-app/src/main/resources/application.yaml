@@ -36,11 +36,8 @@ spring:
 app:
   ai:
     prompts:
-      - Was Tanzu GemFire 10 dedicated to anyone?
-      - What is GemFire?
-      - Why is GemFire so FAST? Be brief
-      - Provide a brief explanation of a GemFire cache server?
-      - Provide a brief explanation of a GemFire locator?
-      - Tell me briefly about the core GemFire data structure called a Region?
-      - Write a code snippet put and get a record from a GemFire region
-      - Tell me briefly about "Spring Data GemFire" and why is it used? Use 100 words or fewer
+      - What are the priority red-flag symptoms in a pediatric or elderly patient with a cough that require immediate escalation for pneumonia?
+      - What subtle clinical signs indicate early occult shock in a patient who still has a normal blood pressure?
+      - What physical exam findings (e.g., fluid overload signs, skin changes, uremic frost) suggest end-stage or unmanaged CKD in a rural setting?
+      - How do I clinically differentiate between an arterial ulcer and a venous/neuropathic ulcer using basic physical exam maneuvers (palpation of pulses, skin temperature, elevation color)?
+      - Which common over-the-counter and field-clinic medications (such as NSAIDs or certain antibiotics) require dose adjustments or complete avoidance in patients with suspected renal impairment?
