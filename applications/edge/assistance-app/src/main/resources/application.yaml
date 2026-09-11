@@ -1,0 +1,46 @@
+server:
+  port: 8088
+spring:
+  application:
+    name:  vector-web-app
+  ai:
+    vectorstore:
+      redis:
+        initialize-schema: true
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: gpt-oss:20b
+#          model: llama3
+#          model: llama3.2:latest
+#      model: wizardlm2:7b
+      init:
+        pull-model-strategy: WHEN_MISSING
+    mcp:
+      client:
+#        enabled: true
+        name: ${spring.application.name}
+        version: 1.0.0
+#        toolcallback:
+#          enabled: true
+        type: SYNC
+#        sse:
+#          connections:
+#            server1:
+#              url: http://localhost:9088
+#              sse-endpoint: /custom-sse
+#              env:
+#                API_KEY: your-api-key
+#                DEBUG: "true"
+app:
+  ai:
+    prompts:
+      - Was Tanzu GemFire 10 dedicated to anyone?
+      - What is GemFire?
+      - Why is GemFire so FAST? Be brief
+      - Provide a brief explanation of a GemFire cache server?
+      - Provide a brief explanation of a GemFire locator?
+      - Tell me briefly about the core GemFire data structure called a Region?
+      - Write a code snippet put and get a record from a GemFire region
+      - Tell me briefly about "Spring Data GemFire" and why is it used? Use 100 words or fewer
