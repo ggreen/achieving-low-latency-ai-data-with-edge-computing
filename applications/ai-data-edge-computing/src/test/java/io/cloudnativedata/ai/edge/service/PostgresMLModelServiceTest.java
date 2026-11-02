@@ -5,12 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import ml.dmlc.xgboost4j.java.DMatrix;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
+@EnabledIfSystemProperty(named = "integration.test", matches = "true")
 class PostgresMLModelServiceTest {
 
     private JdbcTemplate jdbcTemplate;

@@ -806,6 +806,15 @@
       "allPublicMethods": true
     },
     {
+      "type": "io.cloudNativeData.ai.edge.sepsis.SepsisDatasetDownloader",
+      "methods": [
+        {
+          "name": "downloadAndPublish",
+          "parameterTypes": [ ]
+        }
+      ]
+    },
+    {
       "type": "jakarta.inject.Inject"
     },
     {
@@ -1285,6 +1294,9 @@
     },
     {
       "type": "org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor"
+    },
+    {
+      "type": "org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor"
     },
     {
       "type": "org.springframework.boot.amqp.autoconfigure.CachingConnectionFactoryConfigurer"
@@ -3634,6 +3646,9 @@
     {
       "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingConfigurations$SimpleAsyncTaskSchedulerBuilderConfiguration",
       "allDeclaredFields": true
+    },
+    {
+      "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingConfigurations$TaskSchedulerConfiguration"
     },
     {
       "type": "org.springframework.boot.autoconfigure.task.TaskSchedulingConfigurations$ThreadPoolTaskSchedulerBuilderConfiguration"
@@ -11206,10 +11221,19 @@
       "type": "org.springframework.scheduling.annotation.AsyncConfigurer"
     },
     {
+      "type": "org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.scheduling.annotation.SchedulingConfiguration"
+    },
+    {
       "type": "org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
     },
     {
       "type": "org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"
+    },
+    {
+      "type": "org.springframework.scheduling.config.ScheduledTaskHolder"
     },
     {
       "type": "org.springframework.scheduling.SchedulingTaskExecutor"
