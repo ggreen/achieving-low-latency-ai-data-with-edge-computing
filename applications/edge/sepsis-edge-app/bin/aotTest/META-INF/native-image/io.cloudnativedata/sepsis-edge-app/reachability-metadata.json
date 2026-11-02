@@ -1,0 +1,22 @@
+{
+  "comment": "Spring Framework 7.0.9",
+  "reflection": [
+    {
+      "type": "org.junit.AssumptionViolatedException"
+    },
+    {
+      "type": "org.opentest4j.TestAbortedException"
+    },
+    {
+      "type": "org.springframework.test.context.aot.AotTestAttributes__Generated",
+      "allPublicMethods": true
+    },
+    {
+      "type": "org.springframework.test.context.aot.AotTestContextInitializers__Generated",
+      "allPublicMethods": true
+    },
+    {
+      "type": "org.testng.SkipException"
+    }
+  ]
+}

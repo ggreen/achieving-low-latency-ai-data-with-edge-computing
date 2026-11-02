@@ -1,6 +1,7 @@
 package io.cloudnativedata.ai.edge.service;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import ml.dmlc.xgboost4j.java.DMatrix;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class PostgresMLModelServiceTest {
 
     private JdbcTemplate jdbcTemplate;
@@ -61,7 +63,7 @@ class PostgresMLModelServiceTest {
         float sepsisProbability = predictions[0][0];
 
         // 6. Output Single Patient Evaluation
-        System.out.println("\n--- Single Patient Sepsis Evaluation ---");
+        log.info(" Single Patient Sepsis Evaluation ---");
         System.out.printf("Sepsis Probability: %.2f%%%n", sepsisProbability * 100);
         System.out.println("Status: " + (sepsisProbability > 0.5 ? "⚠️ SEPSIS ALERT" : "✅ NORMAL"));
 
@@ -70,6 +72,9 @@ class PostgresMLModelServiceTest {
     @SneakyThrows
     @Test
     void chronicKidneyDisease() {
+        // 3. Convert array to a 1-row, 18-column DMatrix
+        int rows = 1;
+        int cols = 18;
 
         String projectName = "CKD Detection Classifier";
         var model = subject.loadXGBoostModel(projectName);
@@ -95,15 +100,11 @@ class PostgresMLModelServiceTest {
                 0.0f    // anemia: 0 (FALSE)
         };
 
-        // 3. Convert array to a 1-row, 18-column DMatrix
-        int rows = 1;
-        int cols = 18;
-        DMatrix singlePatientData = new DMatrix(patientMetrics, rows, cols, Float.NaN);
+        //Run Model prediction
+        float[][] predictions = model.predict(
+                new DMatrix(patientMetrics, rows, cols, Float.NaN));
 
-        // 4. Run prediction
-        float[][] predictions = model.predict(singlePatientData);
-
-        // 5. Interpret output (binary classification score/probability)
+        //Interpret output (binary classification score/probability)
         float ckdProbability = predictions[0][0];
         boolean hasCKD = ckdProbability >= 0.5f;
 

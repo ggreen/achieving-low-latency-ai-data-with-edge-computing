@@ -1,0 +1,43 @@
+server:
+  port: 8088
+spring:
+  application:
+    name:  vector-web-app
+  ai:
+    vectorstore:
+      redis:
+        initialize-schema: true
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: gpt-oss:20b
+#          model: llama3
+#          model: llama3.2:latest
+#      model: wizardlm2:7b
+      init:
+        pull-model-strategy: WHEN_MISSING
+    mcp:
+      client:
+#        enabled: true
+        name: ${spring.application.name}
+        version: 1.0.0
+#        toolcallback:
+#          enabled: true
+        type: SYNC
+#        sse:
+#          connections:
+#            server1:
+#              url: http://localhost:9088
+#              sse-endpoint: /custom-sse
+#              env:
+#                API_KEY: your-api-key
+#                DEBUG: "true"
+app:
+  ai:
+    prompts:
+      - What are the priority red-flag symptoms in a pediatric or elderly patient with a cough that require immediate escalation for pneumonia?
+      - What subtle clinical signs indicate early occult shock in a patient who still has a normal blood pressure?
+      - What physical exam findings (e.g., fluid overload signs, skin changes, uremic frost) suggest end-stage or unmanaged CKD in a rural setting?
+      - How do I clinically differentiate between an arterial ulcer and a venous/neuropathic ulcer using basic physical exam maneuvers (palpation of pulses, skin temperature, elevation color)?
+      - Which common over-the-counter and field-clinic medications (such as NSAIDs or certain antibiotics) require dose adjustments or complete avoidance in patients with suspected renal impairment?

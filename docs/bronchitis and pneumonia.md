@@ -1,7 +1,38 @@
 Prompt
 
 ```prompt
-Change example to only trainin a model with audio embedding vector to detect bronchitis and pneumonia
+Create a PostgresMl examples to train a model with audio embedding vector to detect bronchitis and pneumonia
+Role: Act as a Senior Machine Learning Engineer and PostgreSQL Database Architect specializing in PostgresML and audio feature extraction.
+
+Task: Provide a complete end-to-end implementation guide for training a binary/multiclass classification model in PostgresML (pgml) using pre-computed audio embedding vectors to detect Bronchitis and Pneumonia from respiratory/cough sounds.
+
+Requirements:
+
+Schema & Data Modeling:
+
+Show the SQL CREATE TABLE statement for storing patient respiratory audio embeddings (e.g., standard 512-dimensional or 768-dimensional float vectors generated from models like CLAP, Audio Spectrogram Transformer, or Wav2Vec2).
+
+Include proper metadata columns (patient_id, audio_sample_id, diagnosis_target).
+
+Provide a mock INSERT statement with sample array data.
+
+Model Training (pgml.train):
+
+Write the pgml.train() query using appropriate algorithms for vector embeddings (e.g., xgboost, lightgbm, or a multi-layer perceptron neural network).
+
+Explain the optimal hyperparameter configurations and preprocessing settings (algorithm => 'none' or standard scaling) for high-dimensional vector inputs.
+
+Inference & Prediction (pgml.predict):
+
+Write a query using pgml.predict() that takes a raw float vector (real[]) as input and predicts the diagnostic class.
+
+Include explicit Postgres type casting (::real[]) to prevent function signature ambiguities (function pgml.predict(unknown, numeric[]) is not unique).
+
+Show how to retrieve prediction probabilities (pgml.predict_proba) if available.
+
+Best Practices & Edge Cases:
+
+Briefly highlight potential pitfalls (e.g., vector dimension mismatches, missing feature scaling issues, or handling severe class imbalance in medical datasets).
 ```
 
 
