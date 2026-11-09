@@ -117,7 +117,7 @@ Open http://localhost:8088. Sample prompts come from `app.ai.prompts` in [applic
 What are the priority red-flag symptoms in a pediatric or elderly patient with a cough that require immediate escalation for pneumonia?
 ```
 
-**Context** (retrieved from [docs/bronchitis and pneumonia.md](docs/bronchitis%20and%20pneumonia.md))
+**Context**
 
 - *Pediatric:* retractions, nasal flaring, grunting, tachypnea (>60/min under 2 months, >50/min 2–11 months, >40/min 1–5 years), cyanosis, lethargy, inability to feed.
 - *Elderly (65+):* acute confusion, hypothermia, silent hypoxia (SpO2 <92%), new falls, worsening of chronic conditions.
