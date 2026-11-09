@@ -797,6 +797,17 @@
       "allDeclaredConstructors": true
     },
     {
+      "type": "io.cloudNativeData.ai.edge.JpaConfig",
+      "allPublicMethods": true,
+      "allDeclaredMethods": true
+    },
+    {
+      "type": "io.cloudNativeData.ai.edge.JpaConfig$$SpringCGLIB$$0",
+      "allDeclaredFields": true,
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true
+    },
+    {
       "type": "io.cloudNativeData.ai.edge.repository.SepsisVitalHistoryRepository",
       "allPublicMethods": true
     },
@@ -4511,9 +4522,6 @@
     {
       "type": "org.springframework.boot.context.properties.NotConstructorBoundInjectionFailureAnalyzer",
       "allDeclaredConstructors": true
-    },
-    {
-      "type": "org.springframework.boot.data.jpa.autoconfigure.DataJpaRepositoriesAutoConfiguration"
     },
     {
       "type": "org.springframework.boot.diagnostics.analyzer.AotInitializerNotFoundFailureAnalyzer",
@@ -10132,6 +10140,9 @@
       "type": "org.springframework.data.jpa.repository.config.JpaMetamodelMappingContextFactoryBean"
     },
     {
+      "type": "org.springframework.data.jpa.repository.config.JpaRepositoryConfigExtension"
+    },
+    {
       "type": "org.springframework.data.jpa.repository.JpaContext"
     },
     {
@@ -10296,6 +10307,9 @@
     {
       "type": "org.springframework.data.repository.config.PropertiesBasedNamedQueriesFactoryBean",
       "allDeclaredFields": true
+    },
+    {
+      "type": "org.springframework.data.repository.config.RepositoryConfigurationExtension"
     },
     {
       "type": "org.springframework.data.repository.core.RepositoryMetadata",

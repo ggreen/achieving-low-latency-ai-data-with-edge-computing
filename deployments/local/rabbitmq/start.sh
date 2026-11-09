@@ -10,4 +10,4 @@ podman run -it --rm \
   -p 1883:1883 \
   -e RABBITMQ_ENABLED_PLUGINS="$PLUGINS" \
   -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_stream advertised_host localhost -rabbitmq_stream advertised_port 5552" \
-  rabbitmq:4.3.0
+  4.3-management :4.3.0

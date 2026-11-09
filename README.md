@@ -23,7 +23,7 @@ The demo shows various low latency edge AI patterns:
 
 ### Why this is low latency
 
-- **Inference is local.** The AU model runs in-process (ex: XGBoost4J). Scoring one patient using small language model predictions, with no network call.
+- **Inference is local.** The AI model runs in-process (ex: XGBoost4J). Scoring one patient using small language model predictions, with no network call.
 - **The LLM is local.** Ollama serves the model on the edge node. No cloud API is involved.
 - **Retrieval and caching are in memory.** Valkey/Postgres holds the vector index and the cache, so repeated questions are served from cache instead of re-running the LLM.
 - **Training stays off the edge.** Data arrives over a stream, is stored and trained in PostgresML, and only the resulting model artifact moves to the edge.
