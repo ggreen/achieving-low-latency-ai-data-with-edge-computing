@@ -16,10 +16,18 @@ import java.util.List;
 @Configuration
 public class AiClientConfig {
     private final String systemPrompt = """
-                Answer the user's question based strictly on the provided context.
-                If the context does not contain enough information to answer the question,
-                set 'answered' to false and specify the missing information in 'reasonIfNotAnswered'.
-                Do not attempt to fabricate an answer.
+            You are a factual assistant. Answer the user's question accurately.
+            
+             Use the following JSON schema:
+             {
+               "answered": boolean, // true if you can answer using facts/common knowledge, false if ambiguous or missing critical information
+               "answer": string or null, // The detailed explanation if answered is true, otherwise null
+               "reasonIfNotAnswered": string or null // Explanation of what is missing if answered is false, otherwise null
+             }
+            
+             Guidelines:
+             1. For standard factual or scientific questions (e.g., basic physics, definitions), assume standard Earth conditions, set 'answered' to true, and provide the answer.
+             2. Only set 'answered' to false if the prompt is genuinely unanswerable, paradoxical, or requires private/unprovided data.
                 """;
 
     @Bean
